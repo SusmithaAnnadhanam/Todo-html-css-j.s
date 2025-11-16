@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Todo</title>
+</head>
+<body>
+    <p class="project">Todo Project</p>
+    <div class="total">
+    <input class ="js-input" placeholder="Todo name"/>
+    <input type="date" class="js-date"/>
+    <button class="js-btn" 
+    onclick="addTodo()"
+    >Add</button>
+    </div>
+<div class ="js-todos"></div>
+<script>
+    const todoArray =[
+        {
+         name:'html',dueDate:" 2022-12-22"
+        },
+        {
+            name:'css',dueDate:" 2022-12-22"},
+        ];
+    displayTodos();
+    function displayTodos(){
+       let todoElements = '';
+        for (let i = 0; i < todoArray.length; i++) {
+            const itemObject = todoArray[i];
+            //const name=itemObject.name;
+            //const dueDate=itemObject.dueDate;
+            const{name,dueDate}=itemObject;
+            const html = `<p class='output'>
+                           <span> ${name}</span><span class="date">${dueDate}</span>
+                            <button class=js-button onclick="
+                              todoArray.splice(${i},1);
+                              displayTodos();
+                            ">Delete</button>
+                        </p>`;
+            todoElements=todoElements+html;
+        }
+        console.log(todoElements);
+        document.querySelector('.js-todos').innerHTML = todoElements;
+    }
+    function addTodo(){
+        const inputElement =document.querySelector('.js-input');
+        const dateElement=document.querySelector('.js-date');
+        const inputValue=inputElement.value;
+        const dateValue =dateElement.value;
+        todoArray.push({name:inputValue,dueDate:dateValue});
+        console.log(todoArray);
+        displayTodos();
+        inputElement.value="";
+    }
+</script>
+</body>
+<style>
+    .js-button{
+        background-color : rgb(0, 162, 255);
+        margin-left: 10px;
+        border-radius: 5px;
+        border :none;
+        padding: 7px;
+        display:grid;
+    }
+    .js-button:hover{
+        background-color:red ;
+    }
+    .total{
+        display:flex;
+        flex-direction: row;
+        gap:10px;
+       
+    }
+    .js-input{
+        display:grid;
+    }
+    .output{
+        display :grid;
+        grid-template-columns: 200px 100px 75px;
+        align-items: center;
+        margin: 12px 0;
+        font-size: 16px;
+    }
+    .date{
+        text-align: left;
+        margin-left: 0;
+        margin-right: 20px;
+    }
+    .project{
+        margin-left: 170px;
+        font-size:25px ;
+    }
+</style>
+</html>
